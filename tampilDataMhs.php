@@ -1,0 +1,57 @@
+<?php
+include 'koneksi.php';
+$data = mysqli_query($koneksi, "SELECT * FROM mhs ORDER BY nim DESC");
+$nourut=0;
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Mahasiswa</title>
+</head>
+<body>
+        <h2>Daftar Data Mahasiswa</h2>
+        <a href="tambahDataMhs.php">Tambah Data Baru</a>
+        <table border="1" cellpadding="8">   
+        <tr>
+            <th>no</th>
+            <th>nim</th>
+            <th>Nama</th>
+            <th>tempatLahir</th>
+            <th>tanggalLahir</th>
+            <th>jmlSaudara</th>
+            <th>alamat</th>
+            <th>kota</th>
+            <th>jenisKelamin</th>
+            <th>Status</th>
+            <th>Hobi</th>
+            <th>Email</th>
+            <th colspan="2">Aksi</th>
+        </tr>
+
+        <?php while ($row = mysqli_fetch_assoc($data)) : ?>
+            <tr>
+
+            <?php $nourut++; ?>
+            <td><?= $nourut ?></td>
+                <td><?=$row['nim'] ?></td>
+                <td><?=$row['nama'] ?></td>
+                <td><?=$row['tempatLahir'] ?></td>
+                <td><?=$row['tanggalLahir'] ?></td>
+                <td><?=$row['jmlSaudara'] ?></td>
+                <td><?=$row['alamat'] ?></td>
+                <td><?=$row['kota'] ?></td>
+                <td><?=$row['jenisKelamin'] ?></td>
+                <td><?=$row['statusKeluarga'] ?></td>
+                <td><?=$row['hobi'] ?></td>
+                <td><?=$row['email'] ?></td>
+
+                <td><a href="koreksiDataMhs.php?kode=<?php echo $row['id']?>">Koreksi</a></td>
+                <td><a href="hapusDataMhs.php?kode=<?php echo $row["id"]?>"onclick="return confirm('Yakin dihapus?')">Hapus</a></td>
+            </tr>
+        <?php
+        endwhile;
+        ?>
+        </table>
+</body>
+</html>
